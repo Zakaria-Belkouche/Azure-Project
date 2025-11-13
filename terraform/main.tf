@@ -33,7 +33,7 @@ resource "azurerm_public_ip" "bastion_ip" {
 
 resource "azurerm_network_security_group" "nsg" {
     name = "bastion-SG"
-    resource_group_name = "azurerm_resource_group.Project.name"
+    resource_group_name = azurerm_resource_group.Project.name
     location = "West Europe"
     security_rule {
         name = "dev-team-access"
@@ -49,7 +49,7 @@ resource "azurerm_network_security_group" "nsg" {
 }
 
 resource "azurerm_network_interface" "public_nic" {
-    name = "anything"
+    name = "bastion-nic"
     location = "West Europe"
     resource_group_name = azurerm_resource_group.Project.name
     ip_configuration {
@@ -85,8 +85,8 @@ resource "azurerm_linux_virtual_machine" "Bastion_Host" {
 
     source_image_reference {
       publisher = "Canonical"  # = Ubuntu
-      offer = "UbuntuServer"
-      sku = "24_04-lts"
+      offer = "0001-com-ubuntu-server-jammy"
+      sku = "22_04-lts"
       version = "latest"
     }
 }
