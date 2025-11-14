@@ -24,15 +24,15 @@ resource "azurerm_subnet" "Private_1" {
     address_prefixes = ["10.1.1.0/24"]
 }
 
-resource "azurerm_public_ip" "bastion_ip" {
-    name = "bastion-ip"
+resource "azurerm_public_ip" "public_ip" {
+    name = "public-ip"
     resource_group_name = azurerm_resource_group.Project.name
     location = "West Europe"
     allocation_method = "Static"
 }
 
-resource "azurerm_network_security_group" "nsg" {
-    name = "bastion-SG"
+resource "azurerm_network_security_group" "public_nsg" {
+    name = "PublicVM-SG"
     resource_group_name = azurerm_resource_group.Project.name
     location = "West Europe"
     security_rule {
@@ -43,39 +43,39 @@ resource "azurerm_network_security_group" "nsg" {
         protocol = "Tcp"
         source_port_range = "*"
         destination_port_range = "22"
-        source_address_prefix = "2.102.137.209"   # turn into a list and add team member IP's.
+        source_address_prefixes = var.Team_IPs   # turn into a list and add team member IP's.
         destination_address_prefix = "*"
     }
 }
 
 resource "azurerm_network_interface" "public_nic" {
-    name = "bastion-nic"
+    name = "PublicVM-nic"
     location = "West Europe"
     resource_group_name = azurerm_resource_group.Project.name
     ip_configuration {
       name = "public-configuration"
       subnet_id = azurerm_subnet.Public_1.id
       private_ip_address_allocation = "Dynamic"
-      public_ip_address_id = azurerm_public_ip.bastion_ip.id
+      public_ip_address_id = azurerm_public_ip.public_ip.id
     }
 }
 
-resource "azurerm_network_interface_security_group_association" "bastion_nsg" {
+resource "azurerm_network_interface_security_group_association" "public_assosiation" {
     network_interface_id = azurerm_network_interface.public_nic.id
-    network_security_group_id = azurerm_network_security_group.nsg.id
+    network_security_group_id = azurerm_network_security_group.public_nsg.id
 }
 
-resource "azurerm_linux_virtual_machine" "Bastion_Host" {
-    name = "Bastion-Host"
+resource "azurerm_linux_virtual_machine" "public_vm" {
+    name = "public-vm"
     resource_group_name = azurerm_resource_group.Project.name
     location = "West Europe"
     network_interface_ids = [azurerm_network_interface.public_nic.id]
-    size = "Standard_B1s"    # Very cheap. Good enough for a bastion host. ~ 0.0104/hr
-    admin_username = "TeamName"  # Use our team name
+    size = "Standard_B1s"    # Very cheap. ~ 0.0104/hr. Might need a bigger one
+    admin_username = "CodeMagicians"  # Use our team name
 
     admin_ssh_key {
-      username = "TeamName"
-      public_key = file("./bastion-key.pub")        # Make ssh key manually on Azure
+      username = "CodeMagicians"
+      public_key = file("./publicVM-key.pub")        # Can make ssh key manually on Azure
     }                                               # then make data block to refer to it. (for future)
 
     os_disk {
