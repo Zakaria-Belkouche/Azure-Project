@@ -46,6 +46,21 @@ resource "azurerm_network_security_group" "public_nsg" {
         source_address_prefixes = var.Team_IPs   # turn into a list and add team member IP's.
         destination_address_prefix = "*"
     }
+
+    # intenet access
+
+    security_rule {
+        name = "internet-access"
+        priority = 200
+        direction = "Inbound"
+        access = "Allow"
+        protocol = "Tcp"
+        source_port_range = "*"
+        destination_port_range = "80"
+        source_address_prefix = "*"
+        destination_address_prefix = "*"
+    }
+
 }
 
 resource "azurerm_network_interface" "public_nic" {
@@ -75,7 +90,7 @@ resource "azurerm_linux_virtual_machine" "public_vm" {
 
     admin_ssh_key {
       username = "CodeMagicians"
-      public_key = file("./publicVM-key.pub")        # Can make ssh key manually on Azure
+      public_key = file("../keys/publicVM-key.pub")        # Can make ssh key manually on Azure
     }                                               # then make data block to refer to it. (for future)
 
     os_disk {
