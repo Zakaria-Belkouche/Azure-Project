@@ -14,9 +14,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
+# Function for defining URL routes
 from django.urls import path
+# Import API view functions from spellchecker app
+from spellchecker import views
 
+# URL configuration for the entire Django project
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # Health check endpoint for verifying backend status
+    path("api/health/", views.health, name="health"),
+    # Spell-check POST endpoint that processes user text
+    path("api/spellcheck/", views.spellcheck, name="spellcheck"),
 ]
