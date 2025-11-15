@@ -127,8 +127,11 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Allowed frontend origins for CORS (Vite uses 5173, Create React App uses 3000)
+# Allowed frontend origins for CORS (Vite uses 5174, Create React App uses 3000)
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Vite
+    "http://localhost:5174",
     "http://localhost:3000",  # CRA
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:5174",
 ]
