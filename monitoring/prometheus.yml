@@ -1,0 +1,25 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+ 
+scrape_configs:
+  # 1) VM metrics via node_exporter
+  - job_name: "node"
+    static_configs:
+      - targets: ["10.1.0.4:9100"]
+ 
+  # 2) HTTP check against your frontend
+  - job_name: "frontend-availability"
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+          - "frontend"   # 'frontend' = container name in docker-compose
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: "blackbox_exporter:9115"

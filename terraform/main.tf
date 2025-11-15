@@ -61,6 +61,30 @@ resource "azurerm_network_security_group" "public_nsg" {
         destination_address_prefix = "*"
     }
 
+    security_rule {
+        name                       = "prometheus-ui"
+        priority                   = 210
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "9090"
+        source_address_prefixes    = var.Team_IPs
+        destination_address_prefix = "*"
+  }
+ 
+    security_rule {
+        name                       = "grafana-ui"
+        priority                   = 220
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "3000"
+        source_address_prefixes    = var.Team_IPs
+        destination_address_prefix = "*"
+  }
+
 }
 
 resource "azurerm_network_interface" "public_nic" {
