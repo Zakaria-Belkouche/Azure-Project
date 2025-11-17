@@ -121,7 +121,7 @@ resource "azurerm_linux_virtual_machine" "public_vm" {
     resource_group_name = azurerm_resource_group.Project.name
     location = "West Europe"
     network_interface_ids = [azurerm_network_interface.public_nic.id]
-    size = "Standard_B1s"    # Very cheap. ~ 0.0104/hr. Might need a bigger one
+    size = "Standard_B2s"    # Upgraded. 2vCPU, 4GB RAM
     admin_username = "CodeMagicians"  # Use our team name
 
     admin_ssh_key {
@@ -140,6 +140,8 @@ resource "azurerm_linux_virtual_machine" "public_vm" {
       sku = "22_04-lts"
       version = "latest"
     }
+
+    custom_data = filebase64("./cloud-init.yaml")
 }
 
 
