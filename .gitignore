@@ -6,3 +6,38 @@ terraform/*.tfstate.*
 terraform/.terraform.lock.hcl
 terraform/*.tfvars
 
+# Backend 
+# Virtual environment
+backend/.venv/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Django local database
+backend/db.sqlite3
+
+# Django migrations cache
+backend/*/migrations/__pycache__/
+
+# Local environment settings
+.env
+*.env
+
+# Frontend
+# Node dependencies
+frontend/node_modules/
+
+# Production build output
+frontend/dist/
+
+# Local environment variables
+frontend/.env
+frontend/.env.*
+
+# Editor
+
+# VSCode
+.vscode/
