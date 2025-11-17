@@ -53,20 +53,21 @@ jobs:
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-    - name: Get VM IP
-      run: |
-          IP=$(az vm show -d -g Project-Directory -n public-vm --query publicIps -o tsv)
-          echo "VM_IP=$IP" >> $GITHUB_ENV
+    # - name: Get VM IP
+    #   run: |
+    #       IP=$(az vm show -d -g Project-Directory -n public-vm --query publicIps -o tsv)
+    #       echo "VM_IP=$IP" >> $GITHUB_ENV
 
-    - name: SSH into VM and clone repo
+    - name: Deploy on VM via run-command
       run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > key.pem
-          chmod 600 key.pem
-          ssh -o StrictHostKeyChecking=no -i key.pem CodeMagicians@${{ env.VM_IP }} "
-            git clone https://token:${{ secrets.GH_PAT }}@github.com/Zakaria-Belkouche/Azure-Project.git || true
-            cd Azure-Project
+        az vm run-command invoke \
+          -g Project-Directory \
+          -n public-vm \
+          --command-id RunShellScript \
+          --scripts "
+            cd /home/CodeMagicians/Azure-Project || git clone https://token:${{ secrets.GH_PAT }}@github.com/Zakaria-Belkouche/Azure-Project.git /home/CodeMagicians/Azure-Project
+            cd /home/CodeMagicians/Azure-Project
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/frontend:latest
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/backend:latest
             docker compose up -d
-          "
-
+            "
