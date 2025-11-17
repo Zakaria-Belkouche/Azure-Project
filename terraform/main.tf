@@ -85,6 +85,18 @@ resource "azurerm_network_security_group" "public_nsg" {
         destination_address_prefix = "*"
   }
 
+     security_rule {
+        name                       = "backend"
+        priority                   = 230
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "8000"
+        source_address_prefix      = "*"    # restrict later if it works.
+        destination_address_prefix = "*"
+  }
+
 }
 
 resource "azurerm_network_interface" "public_nic" {

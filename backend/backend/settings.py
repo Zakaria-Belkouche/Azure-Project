@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-raku1=9pzk*gsdd%+r1k8cm^xrqs@1=(19l5v%pgldg05+$=#n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]   # Restrict later if works
 
 # Application definition
 
@@ -129,9 +129,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Allowed frontend origins for CORS (Vite uses 5174, Create React App uses 3000)
 CORS_ALLOWED_ORIGINS = [
+    "http://localhost",
     "http://localhost:5173",  # Vite
     "http://localhost:5174",
     "http://localhost:3000",  # CRA
     "http://127.0.0.1:5173",
     "http://127.0.0.1:5174",
+    "http://localhost:80",
+    "http://20.107.125.244",
+    "http://20.107.125.244:80",
+    "http://20.107.125.244:8000",
 ]

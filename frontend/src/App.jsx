@@ -5,7 +5,7 @@ import ErrorAlert from './components/ErrorAlert';
 import CorrectedText from './components/CorrectedText';
 
 // Base URL for Django API
-const API_BASE = 'http://127.0.0.1:8000/api';
+const API_BASE = 'http://20.107.125.244:8000/api';
 
 function App() {
     // Component state values
