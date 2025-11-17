@@ -28,8 +28,8 @@ jobs:
         file: ./frontend/dockerfile
         push: true
         tags: |
-          ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
-          ${{ secrets.DOCKERHUB_USERNAME }}/frontend:${{ github.sha }}
+          ${{ secrets.DOCKER_HUB_USERNAME }}/frontend:latest
+          ${{ secrets.DOCKER_HUB_USERNAME }}/frontend:${{ github.sha }}
 
 #backend image build and push
 
@@ -40,8 +40,8 @@ jobs:
         file: ./backend/dockerfile
         push: true
         tags: |
-          ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}/backend:latest
-          ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}/backend:${{ github.sha }}
+          ${{ secrets.DOCKER_HUB_USERNAME }}/backend:latest
+          ${{ secrets.DOCKER_HUB_USERNAME }}/backend:${{ github.sha }}
 
     - name: Azure login (OIDC)
       uses: azure/login@v2
@@ -62,8 +62,8 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i key.pem CodeMagicians@${{ env.VM_IP }} "
             git clone https://token:${{ secrets.GH_PAT }}@github.com/Zakaria-Belkouche/Azure-Project.git || true
             cd Azure-Project
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/frontend:latest
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/backend:latest
             docker compose up -d
           "
 
