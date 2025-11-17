@@ -5,7 +5,7 @@ package_upgrade: true
 packages:
   - git
   - docker.io
-  - docker-compose
+  - docker-compose-plugin
 
 runcmd:
   # Add your user to the docker group so you can run docker without sudo
