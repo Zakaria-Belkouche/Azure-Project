@@ -68,5 +68,5 @@ jobs:
               cd /home/CodeMagicians/Azure-Project
               docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/frontend:latest
               docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/backend:latest
-              docker compose up -d
+              docker-compose up -d
               "
