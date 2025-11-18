@@ -52,11 +52,6 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      # - name: Get VM IP
-      #   run: |
-      #       IP=$(az vm show -d -g Project-Directory -n public-vm --query publicIps -o tsv)
-      #       echo "VM_IP=$IP" >> $GITHUB_ENV
-
       - name: Deploy on VM via run-command
         run: |
           az vm run-command invoke \
