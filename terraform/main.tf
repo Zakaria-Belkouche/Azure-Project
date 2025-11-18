@@ -24,11 +24,9 @@ resource "azurerm_subnet" "Private_1" {
     address_prefixes = ["10.1.1.0/24"]
 }
 
-resource "azurerm_public_ip" "public_ip" {
-    name = "public-ip"
-    resource_group_name = azurerm_resource_group.Project.name
-    location = "West Europe"
-    allocation_method = "Static"
+data "azurerm_public_ip" "public-ip" {
+  name                = "public-ip"
+  resource_group_name = "static-ip"
 }
 
 resource "azurerm_network_security_group" "public_nsg" {
@@ -107,7 +105,7 @@ resource "azurerm_network_interface" "public_nic" {
       name = "public-configuration"
       subnet_id = azurerm_subnet.Public_1.id
       private_ip_address_allocation = "Dynamic"
-      public_ip_address_id = azurerm_public_ip.public_ip.id
+      public_ip_address_id = data.azurerm_public_ip.public-ip.id
     }
 }
 
