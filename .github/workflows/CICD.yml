@@ -64,9 +64,12 @@ jobs:
             -n public-vm \
             --command-id RunShellScript \
             --scripts "
+              sudo apt update -y
+              sudo apt install -y docker-compose-plugin docker-compose
               cd /home/CodeMagicians/Azure-Project || git clone https://token:${{ secrets.GH_PAT }}@github.com/Zakaria-Belkouche/Azure-Project.git /home/CodeMagicians/Azure-Project
               cd /home/CodeMagicians/Azure-Project
               docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/frontend:latest
               docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/backend:latest
+              docker-compose down
               docker-compose up -d
               "
