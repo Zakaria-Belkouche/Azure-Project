@@ -1,5 +1,16 @@
+# 🧙‍♂️ CODE MAGICIANS — Team Members
+
+**Zakaria Belkouche** — Infra Engineer / SRE  
+**Charlie Hunger** — Infra Engineer / SRE  
+**Nadika Welch** — Software Engineer / SRE  
+
+---
+
 # Spell Checker App, Full Stack Deployment with Terraform, Docker & Azure
 A full-stack Spell Checker application built with React (frontend) and Django (backend), fully deployed on Microsoft Azure using Terraform, Docker, and monitored with Prometheus & Grafana. CI/CD automation is handled through GitHub Actions.
+
+![Project Architecture Diagram](./images/projectDiagram)
+
 
  ## Features Overview
  
