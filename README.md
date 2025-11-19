@@ -39,10 +39,10 @@ Prometheus monitors VM performance, and Grafana displays these metrics through d
 - Create a virtual environment
 - `python -m venv .venv`
 - Activate the virtual environment
-# Windows:
-- `.venv\Scripts\activate`
-# macOS / Linux:
-- `source .venv/bin/activate`
+#### Windows:
+ `.venv\Scripts\activate`
+#### macOS / Linux:
+ `source .venv/bin/activate`
   
 - `pip install -r requirements.txt`
 - `python manage.py runserver`
