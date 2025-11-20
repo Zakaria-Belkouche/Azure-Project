@@ -9,6 +9,9 @@
 # Spell Checker App, Full Stack Deployment with Terraform, Docker & Azure
 A full-stack Spell Checker application built with React (frontend) and Django (backend), fully deployed on Microsoft Azure using Terraform, Docker, and monitored with Prometheus & Grafana. CI/CD automation is handled through GitHub Actions.
 
+![Spellchecker App](images/spellChecker.jpg)
+
+---
 
 ## Project Diagram
 ![Project Architecture Diagram](images/projectDiagram.jpg)
@@ -44,7 +47,11 @@ A full-stack Spell Checker application built with React (frontend) and Django (b
 
 ## Monitoring
 ### Prometheus monitors:
-Prometheus monitors VM performance, and Grafana displays these metrics through dashboards showing CPU, memory, and overall system health.
+Prometheus monitors VM performance and conducts frontend health checks on port 80. Grafana displays these metrics through dashboards showing CPU, memory, and overall system health.
+
+![Monitoring](images/grafanaDashboard.png)
+
+---
 
 ## Local Development. Usage
 ### Backend:
